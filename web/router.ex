@@ -16,11 +16,12 @@ defmodule LeanStarter.Router do
   scope "/", LeanStarter do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", LeanStarter do
-  #   pipe_through :api
-  # end
+  scope "/api", LeanStarter do
+    pipe_through :api
+
+    resources "/projects", ProjectController, except: [:new, :edit]
+  end
 end
+
