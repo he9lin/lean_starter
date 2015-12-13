@@ -25,6 +25,7 @@ defmodule LeanStarter.ConnCase do
       import Ecto.Query, only: [from: 2]
 
       import LeanStarter.Router.Helpers
+      import LeanStarter.TestHelpers
 
       # The default endpoint for testing
       @endpoint LeanStarter.Endpoint
