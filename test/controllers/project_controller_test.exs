@@ -18,11 +18,13 @@ defmodule LeanStarter.ProjectControllerTest do
   test "shows chosen resource", %{conn: conn} do
     project = Repo.insert! %Project{name: "awesome project"}
     conn = get conn, project_path(conn, :show, project)
-    assert json_response(conn, 200)["data"] == %{"id" => project.id,
+    assert json_response(conn, 200)["data"] == %{
+      "id" => project.id,
       "user_id" => project.user_id,
       "name" => project.name,
       "slug" => project.slug,
-      "description" => project.description}
+      "description" => project.description
+    }
   end
 
   test "does not show resource and instead throw error when id is nonexistent", %{conn: conn} do
@@ -43,10 +45,11 @@ defmodule LeanStarter.ProjectControllerTest do
   end
 
   test "updates and renders chosen resource when data is valid", %{conn: conn} do
-    project = Repo.insert! %Project{name: "awesome project"}
-    conn = put conn, project_path(conn, :update, project), project: @valid_attrs
+    project = Repo.insert! %Project{name: "some content"}
+    conn = put conn, project_path(conn, :update, project), project: %{name: "awesome project"}
     assert json_response(conn, 200)["data"]["id"]
-    assert Repo.get_by(Project, @valid_attrs)
+    assert "awesome project" = json_response(conn, 200)["data"]["name"]
+    assert Repo.get_by(Project, name: "awesome project")
   end
 
   test "does not update chosen resource and renders errors when data is invalid", %{conn: conn} do
