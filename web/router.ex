@@ -15,7 +15,6 @@ defmodule LeanStarter.Router do
 
   scope "/", LeanStarter do
     pipe_through :browser # Use the default browser stack
-
   end
 
   scope "/api", LeanStarter do

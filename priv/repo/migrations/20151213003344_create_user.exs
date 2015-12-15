@@ -3,9 +3,9 @@ defmodule LeanStarter.Repo.Migrations.CreateUser do
 
   def change do
     create table(:users) do
-      add :name, :string
-      add :username, :string, null: false
-      add :password_hash, :string
+      add :email, :string, null: false
+      add :username, :string
+      add :encrypted_password, :string
 
       timestamps
     end

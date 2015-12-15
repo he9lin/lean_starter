@@ -37,7 +37,8 @@ defmodule LeanStarter.Mixfile do
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:cowboy, "~> 1.0"},
      {:httpoison, "~> 0.8.0"},
-     {:comeonin, "~> 1.2"}]
+     {:comeonin, "~> 1.2"},
+     {:guardian, "~>0.6.0"}]
   end
 
   # Aliases are shortcut or tasks specific to the current project.
