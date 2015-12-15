@@ -20,6 +20,8 @@ defmodule LeanStarter.Router do
   scope "/api", LeanStarter do
     pipe_through :api
 
+    post "/sessions", SessionController, :create
+
     resources "/projects", ProjectController, except: [:new, :edit]
   end
 end

@@ -6,12 +6,13 @@ defmodule LeanStarter.User do
     field :email, :string
     field :password, :string, virtual: true
     field :encrypted_password, :string
+    field :auth_token, :string
 
     timestamps
   end
 
   @required_fields ~w(username email)
-  @optional_fields ~w()
+  @optional_fields ~w(auth_token)
 
   def changeset(model, params \\ :empty) do
     model

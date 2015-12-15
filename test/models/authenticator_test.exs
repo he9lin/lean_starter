@@ -6,10 +6,10 @@ defmodule LeanStarter.AuthenticatorTest do
 
   test "login user by email" do
     valid_registration_attrs = %{
-      username: "superman", email: "user@example.com", password: "secretpwd"
+      username: "superman2", email: "user2@example.com", password: "secretpwd"
     }
     changeset = User.registration_changeset(%User{}, valid_registration_attrs)
-    assert {:ok, user} = Repo.insert changeset
+    {:ok, user} = Repo.insert changeset
 
     valid_login_attrs = valid_registration_attrs |> Dict.delete(:username)
     {:ok, auth_user } = Authenticator.login(valid_login_attrs, Repo)
