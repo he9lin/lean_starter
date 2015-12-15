@@ -19,7 +19,7 @@ defmodule LeanStarter.SessionControllerTest do
     conn = \
       post conn, "/api/sessions", %{email: user.email, password: "secretpwd"}
     assert json_response(conn, 201)["data"]
-    assert json_response(conn, 201)["data"]["auth_token"] == user.auth_token
+    assert json_response(conn, 201)["data"]["auth_token"]
   end
 end
 

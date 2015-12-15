@@ -29,6 +29,11 @@ defmodule LeanStarter.User do
     |> put_pass_hash()
   end
 
+  def update_changeset(model, params \\ :empty) do
+    model
+    |> cast(params, ~w(), ~w(auth_token))
+  end
+
   defp put_pass_hash(changeset) do
     case changeset do
       %Ecto.Changeset{valid?: true, changes: %{password: pass}} ->
