@@ -1,4 +1,4 @@
-defmodule PhoenixGuardian.GuardianHooks do
+defmodule LeanStarter.GuardianHooks do
   use Guardian.Hooks
 
   def before_mint(resource, type, claims) do
