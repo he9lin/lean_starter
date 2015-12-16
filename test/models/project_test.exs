@@ -11,6 +11,11 @@ defmodule LeanStarter.ProjectTest do
     assert changeset.valid?
   end
 
+  test "slug generate" do
+    changeset = Project.changeset(%Project{}, @valid_attrs)
+    assert changeset.changes[:slug]
+  end
+
   test "changeset with invalid attributes" do
     changeset = Project.changeset(%Project{}, @invalid_attrs)
     refute changeset.valid?

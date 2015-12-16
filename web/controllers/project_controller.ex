@@ -2,7 +2,6 @@ defmodule LeanStarter.ProjectController do
   use LeanStarter.Web, :controller
 
   alias LeanStarter.Project
-  alias LeanStarter.SessionController
 
   plug :find_project            when action in [:show, :update, :delete]
   plug :scrub_params, "project" when action in [:create, :update]
