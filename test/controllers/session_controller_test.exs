@@ -9,8 +9,9 @@ defmodule LeanStarter.SessionControllerTest do
     valid_registration_attrs = %{
       username: "superman1", email: "user1@example.com", password: "secretpwd"
     }
-    changeset = User.registration_changeset(%User{}, valid_registration_attrs)
-    {:ok, user} = Repo.insert changeset
+    user = %User{}
+           |> User.registration_changeset(valid_registration_attrs)
+           |> Repo.insert!
 
     {:ok, conn: conn, user: user}
   end

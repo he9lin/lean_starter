@@ -1,5 +1,5 @@
 defmodule LeanStarter.ProjectControllerTest do
-  use LeanStarter.ConnCase
+  use LeanStarter.ConnCase, async: true
 
   alias LeanStarter.Project
   alias LeanStarter.User
@@ -9,19 +9,8 @@ defmodule LeanStarter.ProjectControllerTest do
 
   setup do
     conn = conn() |> put_req_header("accept", "application/json")
-    rand = LeanStarter.Randomise.random
-
-    valid_registration_attrs = %{
-      username: "superman#{rand}",
-      email: "user#{rand}@example.com", password: "secretpwd"
-    }
-    changeset = User.registration_changeset(%User{}, valid_registration_attrs)
-    {:ok, user} = Repo.insert changeset
-    { :ok, jwt, _full_claims } = Guardian.encode_and_sign(user, :api)
-    changeset = User.update_changeset(user, %{"auth_token" => jwt})
-    { :ok, updated_user } = Repo.update changeset
-
-    {:ok, conn: conn, user: updated_user}
+    user = create_registered_user
+    {:ok, conn: conn, user: user}
   end
 
   test "returns 401 when not authenticated for index", %{conn: conn} do
