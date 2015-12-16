@@ -60,10 +60,6 @@ defmodule LeanStarter.ProjectController do
     send_resp(conn, :no_content, "")
   end
 
-  defp put_current_user(conn, _opts) do
-    assign(conn, :current_user, Guardian.Plug.current_resource(conn))
-  end
-
   defp find_project(conn, _opts) do
     project = Repo.get!(
       user_projects(conn.assigns.current_user), conn.params["id"]

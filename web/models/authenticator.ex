@@ -1,4 +1,6 @@
 defmodule LeanStarter.Authenticator do
+  import Comeonin.Bcrypt, only: [checkpw: 2]
+
   alias LeanStarter.User
 
   def login(%{email: email, password: password}, repo) \
@@ -13,7 +15,7 @@ defmodule LeanStarter.Authenticator do
   def login(_, _), do: {:error, "invalid params"}
 
   defp authenticate(user, password) when not is_nil(user) do
-    Comeonin.Bcrypt.checkpw(password, user.encrypted_password)
+    checkpw(password, user.encrypted_password)
   end
 
   defp authenticate(_, _), do: false
