@@ -21,6 +21,8 @@ defmodule LeanStarter.User do
     |> cast(params, @required_fields, @optional_fields)
     |> validate_length(:username, min: 3, max: 20)
     |> validate_format(:email, ~r/@/)
+    |> unique_constraint(:email)
+    |> unique_constraint(:username)
   end
 
   def registration_changeset(model, params) do

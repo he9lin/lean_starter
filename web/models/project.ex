@@ -22,5 +22,8 @@ defmodule LeanStarter.Project do
   def changeset(model, params \\ :empty) do
     model
     |> cast(params, @required_fields, @optional_fields)
+    |> validate_length(:name, min: 3, max: 20)
+    |> foreign_key_constraint(:user_id)
   end
 end
+

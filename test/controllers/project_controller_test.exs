@@ -1,5 +1,5 @@
 defmodule LeanStarter.ProjectControllerTest do
-  use LeanStarter.ConnCase, async: true
+  use LeanStarter.ConnCase
 
   alias LeanStarter.Project
   alias LeanStarter.User
@@ -37,7 +37,7 @@ defmodule LeanStarter.ProjectControllerTest do
 
   test "shows chosen resource", %{conn: conn, user: user} do
     conn = conn |> put_req_header("authorization", user.auth_token)
-    project = Repo.insert! %Project{name: "awesome project"}
+    project = Repo.insert! %Project{name: "awesome project", user_id: user.id}
     conn = get conn, project_path(conn, :show, project)
     assert json_response(conn, 200)["data"] == %{
       "id" => project.id,
