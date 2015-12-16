@@ -8,6 +8,8 @@ defmodule LeanStarter.User do
     field :encrypted_password, :string
     field :auth_token, :string
 
+    has_many :projects, LeanStarter.Project
+
     timestamps
   end
 

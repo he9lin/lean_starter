@@ -3,7 +3,7 @@ defmodule LeanStarter.ProjectTest do
 
   alias LeanStarter.Project
 
-  @valid_attrs %{description: "some description", name: "some content"}
+  @valid_attrs %{user_id: "1", description: "some description", name: "some content"}
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do
