@@ -2,7 +2,6 @@ defmodule LeanStarter.ProjectControllerTest do
   use LeanStarter.ConnCase, async: true
 
   alias LeanStarter.Project
-  alias LeanStarter.User
 
   @valid_attrs %{description: "some content", name: "some content", slug: "some content"}
   @invalid_attrs %{name: ""}

@@ -54,6 +54,8 @@ defmodule LeanStarter.Web do
   def router do
     quote do
       use Phoenix.Router
+
+      import LeanStarter.Auth, only: [put_current_user: 2]
     end
   end
 

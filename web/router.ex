@@ -13,6 +13,14 @@ defmodule LeanStarter.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :authentication do
+    plug Guardian.Plug.VerifyHeader
+    plug Guardian.Plug.LoadResource
+    plug Guardian.Plug.EnsureAuthenticated,
+      on_failure: { LeanStarter.SessionController, :unauthenticated_api }
+    plug :put_current_user
+  end
+
   scope "/", LeanStarter do
     pipe_through :browser # Use the default browser stack
   end
@@ -22,7 +30,11 @@ defmodule LeanStarter.Router do
 
     post "/sessions", SessionController, :create
 
-    resources "/projects", ProjectController, except: [:new, :edit]
+    scope "/users" do
+      pipe_through :authentication
+
+      resources "/projects", ProjectController, except: [:new, :edit]
+    end
   end
 end
 

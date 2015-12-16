@@ -4,11 +4,6 @@ defmodule LeanStarter.ProjectController do
   alias LeanStarter.Project
   alias LeanStarter.SessionController
 
-  plug Guardian.Plug.VerifyHeader
-  plug Guardian.Plug.LoadResource
-  plug Guardian.Plug.EnsureAuthenticated, on_failure: { SessionController, :unauthenticated_api }
-
-  plug :set_current_user
   plug :find_project            when action in [:show, :update, :delete]
   plug :scrub_params, "project" when action in [:create, :update]
 
@@ -65,7 +60,7 @@ defmodule LeanStarter.ProjectController do
     send_resp(conn, :no_content, "")
   end
 
-  defp set_current_user(conn, _opts) do
+  defp put_current_user(conn, _opts) do
     assign(conn, :current_user, Guardian.Plug.current_resource(conn))
   end
 
