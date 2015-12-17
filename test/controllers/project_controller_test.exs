@@ -3,7 +3,7 @@ defmodule LeanStarter.ProjectControllerTest do
 
   alias LeanStarter.Project
 
-  @valid_attrs %{description: "some content", name: "some content", slug: "some content"}
+  @valid_attrs %{description: "some content", name: "some content"}
   @invalid_attrs %{name: ""}
 
   setup do
@@ -25,7 +25,9 @@ defmodule LeanStarter.ProjectControllerTest do
 
   test "shows chosen resource", %{conn: conn, user: user} do
     conn = conn |> put_req_header("authorization", user.auth_token)
-    project = Repo.insert! %Project{name: "awesome project", user_id: user.id}
+    project = Repo.insert! Project.changeset(%Project{}, %{
+      name: "awesome project", user_id: user.id}
+    )
     conn = get conn, project_path(conn, :show, project)
     assert json_response(conn, 200)["data"] == %{
       "id" => project.id,
@@ -39,7 +41,7 @@ defmodule LeanStarter.ProjectControllerTest do
   test "throws error when not found", %{conn: conn, user: user} do
     conn = conn |> put_req_header("authorization", user.auth_token)
     assert_raise Ecto.NoResultsError, fn ->
-      get conn, project_path(conn, :show, -1)
+      get conn, project_path(conn, :show, "999-invalid")
     end
   end
 
@@ -57,22 +59,35 @@ defmodule LeanStarter.ProjectControllerTest do
   end
 
   test "updates and renders chosen resource when data is valid", %{conn: conn, user: user} do
-    project = Repo.insert! %Project{name: "awesome project", user_id: user.id}
+    changeset = Project.changeset(
+      %Project{}, %{name: "awesome project", user_id: user.id}
+    )
+    project = Repo.insert! changeset
+
     conn = conn |> put_req_header("authorization", user.auth_token)
-    conn = put conn, project_path(conn, :update, project), project: %{name: "awesome project"}
+    conn = put conn, project_path(conn, :update, project),
+      project: %{name: "another project"}
     assert json_response(conn, 200)["data"]["id"]
-    assert "awesome project" = json_response(conn, 200)["data"]["name"]
+    assert "another project" = json_response(conn, 200)["data"]["name"]
   end
 
   test "does not update chosen resource and renders errors when data is invalid", %{conn: conn, user: user} do
-    project = Repo.insert! %Project{name: "awesome project", user_id: user.id}
+    changeset = Project.changeset(
+      %Project{}, %{name: "awesome project", user_id: user.id}
+    )
+    project = Repo.insert! changeset
+
     conn = conn |> put_req_header("authorization", user.auth_token)
     conn = put conn, project_path(conn, :update, project), project: @invalid_attrs
     assert json_response(conn, 422)["errors"] != %{}
   end
 
   test "deletes chosen resource", %{conn: conn, user: user} do
-    project = Repo.insert! %Project{name: "awesome project", user_id: user.id}
+    changeset = Project.changeset(
+      %Project{}, %{name: "awesome project", user_id: user.id}
+    )
+    project = Repo.insert! changeset
+
     conn = conn |> put_req_header("authorization", user.auth_token)
     conn = delete conn, project_path(conn, :delete, project)
     assert response(conn, 204)
