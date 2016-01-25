@@ -23,7 +23,7 @@ defmodule LeanStarter.SessionController do
     end
   end
 
-  def unauthenticated_api(conn, _params) do
+  def unauthenticated(conn, _params) do
     the_conn = put_status(conn, 401)
     case Guardian.Plug.claims(conn) do
       { :error, :no_session } -> json(the_conn, %{ error: "Login required" })

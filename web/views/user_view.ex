@@ -1,18 +1,9 @@
 defmodule LeanStarter.UserView do
   use LeanStarter.Web, :view
+  use JaSerializer.PhoenixView
 
-  def render("index.json", %{users: users}) do
-    %{data: render_many(users, LeanStarter.UserView, "user.json")}
-  end
+  def type, do: "users"
 
-  def render("show.json", %{user: user}) do
-    %{data: render_one(user, LeanStarter.UserView, "user.json")}
-  end
-
-  def render("user.json", %{user: user}) do
-    %{id: user.id,
-      email: user.email,
-      auth_token: user.auth_token}
-  end
+  attributes [:email, :auth_token]
 end
 

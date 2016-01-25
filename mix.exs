@@ -6,7 +6,7 @@ defmodule LeanStarter.Mixfile do
      version: "0.0.1",
      elixir: "~> 1.0",
      elixirc_paths: elixirc_paths(Mix.env),
-     compilers: [:phoenix] ++ Mix.compilers,
+     compilers: [:phoenix, :gettext] ++ Mix.compilers,
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      aliases: aliases,
@@ -18,7 +18,7 @@ defmodule LeanStarter.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [mod: {LeanStarter, []},
-     applications: [:phoenix, :phoenix_html, :cowboy, :logger,
+     applications: [:phoenix, :phoenix_html, :cowboy, :logger, :gettext,
                     :phoenix_ecto, :postgrex, :comeonin]]
   end
 
@@ -30,15 +30,18 @@ defmodule LeanStarter.Mixfile do
   #
   # Type `mix help deps` for examples and options.
   defp deps do
-    [{:phoenix, "~> 1.0.4"},
-     {:phoenix_ecto, "~> 1.1"},
-     {:postgrex, "~> 0.9.1"},
-     {:phoenix_html, "~> 2.1"},
+    [{:phoenix, "~> 1.1.3"},
+     {:phoenix_ecto, "~> 2.0"},
+     {:postgrex, ">= 0.0.0"},
+     {:phoenix_html, "~> 2.3"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
-     {:cowboy, "~> 1.0"},
-     {:httpoison, "~> 0.8.0"},
      {:comeonin, "~> 1.2"},
-     {:guardian, "~>0.6.0"}]
+     {:cowboy, "~> 1.0"},
+     {:gettext, "~> 0.9"},
+     {:guardian, "~> 0.8.0"},
+     {:httpoison, "~> 0.8.0"},
+     {:ja_serializer, "~> 0.6.1"},
+     {:secure_random, "~> 0.2"}]
   end
 
   # Aliases are shortcut or tasks specific to the current project.

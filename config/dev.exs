@@ -19,6 +19,7 @@ config :lean_starter, LeanStarter.Endpoint,
   live_reload: [
     patterns: [
       ~r{priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$},
+      ~r{priv/gettext/.*(po)$},
       ~r{web/views/.*(ex)$},
       ~r{web/templates/.*(eex)$}
     ]
@@ -35,8 +36,8 @@ config :phoenix, :stacktrace_depth, 20
 # Configure your database
 config :lean_starter, LeanStarter.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
+  username: "vagrant",
+  password: "vagrant",
   database: "lean_starter_dev",
   hostname: "localhost",
   pool_size: 10

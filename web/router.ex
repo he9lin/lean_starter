@@ -16,8 +16,7 @@ defmodule LeanStarter.Router do
   pipeline :authentication do
     plug Guardian.Plug.VerifyHeader
     plug Guardian.Plug.LoadResource
-    plug Guardian.Plug.EnsureAuthenticated,
-      on_failure: { LeanStarter.SessionController, :unauthenticated_api }
+    plug Guardian.Plug.EnsureAuthenticated, handler: LeanStarter.SessionController
     plug :put_current_user
   end
 

@@ -5,6 +5,13 @@
 # is restricted to this project.
 use Mix.Config
 
+config :ja_serializer, key_format: :underscored
+
+# JSON API mime
+config :plug, :mimes, %{
+  "application/vnd.api+json" => ["json-api"]
+}
+
 # Configures the endpoint
 config :lean_starter, LeanStarter.Endpoint,
   url: [host: "localhost"],
@@ -19,8 +26,6 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
-config :joken, config_module: Guardian.JWT
-
 config :guardian, Guardian,
   issuer: "LeanStarter",
   ttl: { 100_000, :days },
@@ -29,7 +34,7 @@ config :guardian, Guardian,
   serializer: LeanStarter.GuardianSerializer,
   hooks: LeanStarter.GuardianHooks,
   permissions: %{
-    default: [:read_profile, :write_profile]
+    default: [:read, :write]
   }
 
 # Import environment specific config. This must remain at the bottom

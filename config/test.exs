@@ -12,8 +12,8 @@ config :logger, level: :warn
 # Configure your database
 config :lean_starter, LeanStarter.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
+  username: "vagrant",
+  password: "vagrant",
   database: "lean_starter_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox

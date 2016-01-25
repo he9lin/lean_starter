@@ -20,8 +20,9 @@ defmodule LeanStarter.Web do
     quote do
       use Ecto.Model
 
+      import Ecto
       import Ecto.Changeset
-      import Ecto.Query, only: [from: 1, from: 2]
+      import Ecto.Query, only: [from: 1, from: 2, select: 3]
     end
   end
 
@@ -30,10 +31,12 @@ defmodule LeanStarter.Web do
       use Phoenix.Controller
 
       alias LeanStarter.Repo
-      import Ecto.Model
+
+      import Ecto
       import Ecto.Query, only: [from: 1, from: 2]
 
       import LeanStarter.Router.Helpers
+      import LeanStarter.Gettext
     end
   end
 
@@ -48,6 +51,8 @@ defmodule LeanStarter.Web do
       use Phoenix.HTML
 
       import LeanStarter.Router.Helpers
+      import LeanStarter.ErrorHelpers
+      import LeanStarter.Gettext
     end
   end
 
@@ -64,8 +69,9 @@ defmodule LeanStarter.Web do
       use Phoenix.Channel
 
       alias LeanStarter.Repo
-      import Ecto.Model
+      import Ecto
       import Ecto.Query, only: [from: 1, from: 2]
+      import LeanStarter.Gettext
     end
   end
 

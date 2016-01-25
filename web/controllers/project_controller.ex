@@ -19,7 +19,7 @@ defmodule LeanStarter.ProjectController do
   def create(conn, %{"project" => project_params}, user) do
     changeset =
       user
-      |> build(:projects)
+      |> Ecto.build_assoc(:projects)
       |> Project.changeset(project_params)
 
     case Repo.insert(changeset) do
@@ -30,7 +30,7 @@ defmodule LeanStarter.ProjectController do
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
-        |> render(LeanStarter.ChangesetView, "error.json", changeset: changeset)
+        |> render("errors.json", data: changeset)
     end
   end
 
@@ -48,7 +48,7 @@ defmodule LeanStarter.ProjectController do
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
-        |> render(LeanStarter.ChangesetView, "error.json", changeset: changeset)
+        |> render("errors.json", data: changeset)
     end
   end
 

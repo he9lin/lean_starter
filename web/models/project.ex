@@ -49,4 +49,3 @@ defimpl Phoenix.Param, for: LeanStarter.Project do
     "#{id}-#{slug}"
   end
 end
-
